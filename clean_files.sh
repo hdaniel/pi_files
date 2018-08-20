@@ -18,6 +18,12 @@ move_files () {
 base_path="/home/pi/FTP"
 cd $base_path
 
+# cleanup camera uploads
+find $base_path -type f -mtime +14 -name '*.mkv' -execdir rm -- '{}' \;
+find $base_path -type f -mtime +14 -name '*.jpg' -execdir rm -- '{}' \;
+find $base_path -type f -mtime +14 -name '*.mp4' -execdir rm -- '{}' \;
+find $base_path -type d -empty -delete
+
 ###########################################################
 ### customize directory name list here for this device: ###
 ###########################################################
@@ -44,10 +50,24 @@ do
     do
       move_files $file $regex
     done
+
+    # combine the mkv video files if there are new files
+    for date_dir in 20*/
+    do
+      cd $date_dir
+      # remove any 0 byte files:
+      find . -name 'MDalarm*' -size 0 -print0 | xargs -0 rm
+      for video_file in *.mkv
+      do
+        echo "file '$video_file'" >> file_list.txt
+      done
+      if ! cmp file_list.txt file_list_processed.txt >/dev/null 2>&1
+      then
+        ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy $date_dir"_full.mp4"
+      fi
+      mv file_list.txt file_list_processed.txt
+      cd ..
+    done
+
   done
 done
-
-# cleanup camera uploads
-find /home/pi/FTP/ -type f -mtime +14 -name '*.mkv' -execdir rm -- '{}' \;
-find /home/pi/FTP/ -type f -mtime +14 -name '*.jpg' -execdir rm -- '{}' \;
-find /home/pi/FTP/ -type d -empty -delete
