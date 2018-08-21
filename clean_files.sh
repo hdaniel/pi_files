@@ -63,7 +63,7 @@ do
       done
       if ! cmp file_list.txt file_list_processed.txt >/dev/null 2>&1
       then
-        outfile=basename $date_dir
+        outfile=`basename $date_dir`
         output_filename=$outfile"_full.mp4"
         ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy $output_filename
         chown ftpuser:ftpgroup $output_filename
