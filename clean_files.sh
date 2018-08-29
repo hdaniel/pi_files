@@ -71,7 +71,7 @@ do
         mv file_list.txt file_list_processed.txt
         chown ftpuser:ftpgroup file_list_processed.txt
       fi
-      if [ ! -f "file_list.txt" ]; then
+      if [ -f "file_list.txt" ]; then
         rm file_list.txt
       fi
       cd ..
