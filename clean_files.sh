@@ -22,6 +22,7 @@ cd $base_path
 find $base_path -type f -mtime +14 -name '*.mkv' -execdir rm -- '{}' \;
 find $base_path -type f -mtime +14 -name '*.jpg' -execdir rm -- '{}' \;
 find $base_path -type f -mtime +14 -name '*.mp4' -execdir rm -- '{}' \;
+find $base_path -type f -mtime +14 -name '*.txt' -execdir rm -- '{}' \;
 find $base_path -type d -empty -delete
 
 ###########################################################
