@@ -58,24 +58,29 @@ do
       cd $date_dir
       # remove any 0 byte files:
       find . -name 'MDalarm*' -size 0 -print0 | xargs -0 rm
-      for video_file in *.mkv
-      do
-        echo "file '$video_file'" >> file_list.txt
-      done
-      if ! cmp file_list.txt file_list_processed.txt >/dev/null 2>&1
+
+      mkv_count=`ls -1 *.mkv 2>/dev/null | wc -l`
+      if [ $mkv_count != 0 ] # skip this if no mkv files!
       then
-        outfile1=`basename $cam_dir`
-        outfile2=`basename $date_dir`
-        output_filename=$outfile1"_"$outfile2"_full.mp4"
-        ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy $output_filename
-        chown ftpuser:ftpgroup $output_filename
-        mv file_list.txt file_list_processed.txt
-        chown ftpuser:ftpgroup file_list_processed.txt
-      fi
-      if [ -f "file_list.txt" ]; then
-        rm file_list.txt
-      fi
-      cd ..
+        for video_file in *.mkv
+        do
+          echo "file '$video_file'" >> file_list.txt
+        done
+        if ! cmp file_list.txt file_list_processed.txt >/dev/null 2>&1
+        then
+          outfile1=`basename $cam_dir`
+          outfile2=`basename $date_dir`
+          output_filename=$outfile1"_"$outfile2"_full.mp4"
+          ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy $output_filename
+          chown ftpuser:ftpgroup $output_filename
+          mv file_list.txt file_list_processed.txt
+          chown ftpuser:ftpgroup file_list_processed.txt
+        fi
+        if [ -f "file_list.txt" ]; then
+          rm file_list.txt
+        fi
+        cd ..
+      fi # end skip this if no mkv files!
     done
 
   done
