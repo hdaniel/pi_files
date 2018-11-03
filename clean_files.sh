@@ -1,5 +1,12 @@
 #!/bin/bash
 
+for pid in $(pidof -x clean_files.sh); do
+  if [ $pid != $$ ]; then
+    echo "[$(date)] : clean_files.sh : Process is already running with PID $pid"
+    exit 1
+  fi
+done
+
 move_files () {
   file=$1
   regex=$2
