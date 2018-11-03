@@ -62,7 +62,7 @@ do
           outfile1=`basename $cam_dir`
           outfile2=`basename $date_dir`
           output_filename=$cam_dir_$outfile1"_"$outfile2"_full_jpg.mp4"
-          ffmpeg -r 4 -f concat -safe 0 -i file_list.txt -s 1280x720 -vcodec libx264 -crf 25  -pix_fmt yuv420p $output_filename
+          ffmpeg -r 4 -f concat -safe 0 -i file_list.txt -s 1280x720 -vcodec libx264 -crf 25 -pix_fmt yuv420p $output_filename -y
           chown ftpuser:ftpgroup $output_filename
           mv file_list.txt file_list_processed.txt
           chown ftpuser:ftpgroup file_list_processed.txt
@@ -70,8 +70,8 @@ do
         if [ -f "file_list.txt" ]; then
           rm file_list.txt
         fi
-        cd ..
       fi # end skip this if no jpg files!
+      cd ..
     done
 
     # MDalarm_20180812_100109.mkv
@@ -101,8 +101,8 @@ do
         then
           outfile1=`basename $cam_dir`
           outfile2=`basename $date_dir`
-          output_filename=$outfile1"_"$outfile2"_full.mp4"
-          ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy $output_filename
+          output_filename=$cam_dir_$outfile1"_"$outfile2"_full.mp4"
+          ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy $output_filename -y
           chown ftpuser:ftpgroup $output_filename
           mv file_list.txt file_list_processed.txt
           chown ftpuser:ftpgroup file_list_processed.txt
@@ -110,8 +110,8 @@ do
         if [ -f "file_list.txt" ]; then
           rm file_list.txt
         fi
-        cd ..
       fi # end skip this if no mkv files!
+      cd ..
     done
 
   done
