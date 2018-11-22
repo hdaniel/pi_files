@@ -26,10 +26,10 @@ base_path="/home/pi/FTP"
 cd $base_path
 
 # cleanup camera uploads
-find $base_path -type f -mtime +10 -name '*.mkv' -execdir rm -- '{}' \;
-find $base_path -type f -mtime +10 -name '*.jpg' -execdir rm -- '{}' \;
-find $base_path -type f -mtime +10 -name '*.mp4' -execdir rm -- '{}' \;
-find $base_path -type f -mtime +10 -name '*.txt' -execdir rm -- '{}' \;
+find $base_path -type f -daystart -mtime +10 -name '*.mkv' -execdir rm -- '{}' \;
+find $base_path -type f -daystart -mtime +10 -name '*.jpg' -execdir rm -- '{}' \;
+find $base_path -type f -daystart -mtime +10 -name '*.mp4' -execdir rm -- '{}' \;
+find $base_path -type f -daystart -mtime +10 -name '*.txt' -execdir rm -- '{}' \;
 find $base_path -type d -empty -delete
 
 ###########################################################
@@ -41,8 +41,12 @@ do
   for f_dir in F*/
   do
     cd $base_path/$cam_dir/$f_dir
-    # MDAlarm_20180807-135928.jpg
+
+    # jpgs
     cd snap
+
+    # move files into date directory
+    # MDAlarm_20180807-135928.jpg
     files="*.jpg"
     regex="^MDAlarm_([0-9]{4})([0-9]{2})([0-9]{2})-([0-9]{2})([0-9]{2})([0-9]{2})*"
     for file in $files
@@ -81,9 +85,12 @@ do
       cd ..
     done
 
-    # MDalarm_20180812_100109.mkv
+    # videos
     cd ../record
+
+    # move files into date directory
     files="*.mkv"
+    # MDalarm_20180812_100109.mkv
     regex="^MDalarm_([0-9]{4})([0-9]{2})([0-9]{2})_([0-9]{2})([0-9]{2})([0-9]{2})*"
     for file in $files
     do
