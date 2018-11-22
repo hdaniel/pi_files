@@ -63,12 +63,12 @@ do
 
       jpg_count=`ls -1 *.jpg 2>/dev/null | wc -l`
       if [ -f "pass_count.txt" ]; then
-        pass_count = `cat pass_count.txt`
-        new_pass = $pass_count + 1
+        pass_count=`cat pass_count.txt`
+        new_pass=$pass_count + 1
         echo $new_pass > pass_count.txt
       else
         echo 1 > pass_count.txt
-        pass = 1
+        pass_count=1
       fi
       # skip this if no jpg files or pass_count > 3
       if [ $jpg_count != 0 ] || [ $pass_count < 4 ]
@@ -82,7 +82,7 @@ do
           outfile1=`basename $cam_dir`
           outfile2=`basename $date_dir`
           output_filename=$cam_dir_$outfile1"_"$outfile2"_full_jpg.mp4"
-          ffmpeg -r 4 -f concat -safe 0 -i file_list.txt -s 1280x720 $output_filename -y
+          ffmpeg -r 4 -f concat -safe 0 -i file_list.txt -s 1280x720 -vcodec libx264 -pix_fmt yuv420p $output_filename -y
           chown ftpuser:ftpgroup $output_filename
           mv file_list.txt file_list_processed.txt
           chown ftpuser:ftpgroup file_list_processed.txt
@@ -122,12 +122,12 @@ do
 
       mkv_count=`ls -1 *.mkv 2>/dev/null | wc -l`
       if [ -f "pass_count.txt" ]; then
-        pass_count = `cat pass_count.txt`
-        new_pass = $pass_count + 1
+        pass_count=`cat pass_count.txt`
+        new_pass=$pass_count + 1
         echo $new_pass > pass_count.txt
       else
         echo 1 > pass_count.txt
-        pass = 1
+        pass_count=1
       fi
       # skip this if no mkv files or pass_count > 3
       if [ $mkv_count != 0 ] || [ $pass_count < 4 ]
