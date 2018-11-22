@@ -71,7 +71,7 @@ do
         pass_count=1
       fi
       # skip this if no jpg files or pass_count > 3
-      if [ $jpg_count != 0 ] || [ $pass_count < 4 ]
+      if [ $jpg_count != 0 ] && [ $pass_count < 4 ]
       then
         for jpg_file in *.jpg
         do
@@ -130,7 +130,7 @@ do
         pass_count=1
       fi
       # skip this if no mkv files or pass_count > 3
-      if [ $mkv_count != 0 ] || [ $pass_count < 4 ]
+      if [ $mkv_count != 0 ] && [ $pass_count < 4 ]
       then
         for video_file in *.mkv
         do
