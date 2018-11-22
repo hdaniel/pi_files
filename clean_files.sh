@@ -64,14 +64,14 @@ do
       jpg_count=`ls -1 *.jpg 2>/dev/null | wc -l`
       if [ -f "pass_count.txt" ]; then
         pass_count=`cat pass_count.txt`
-        new_pass=$pass_count + 1
+        new_pass=$pass_count+1
         echo $new_pass > pass_count.txt
       else
         echo 1 > pass_count.txt
         pass_count=1
       fi
       # skip this if no jpg files or pass_count > 3
-      if [ $jpg_count != 0 ] && [ $pass_count < 4 ]
+      if [ $jpg_count != 0 ] && [ "$pass_count" -lt 4 ]
       then
         for jpg_file in *.jpg
         do
@@ -89,13 +89,6 @@ do
         fi
         if [ -f "file_list.txt" ]; then
           rm file_list.txt
-        fi
-        if [ -f "pass_count.txt" ]; then
-          pass_count = `tail -1 pass_count.txt`
-          new_pass = $pass_count + 1
-          echo $new_pass >> pass_count.txt
-        else
-          echo 1 > pass_count.txt
         fi
       fi # end skip this if no jpg files!
       cd ..
@@ -123,14 +116,14 @@ do
       mkv_count=`ls -1 *.mkv 2>/dev/null | wc -l`
       if [ -f "pass_count.txt" ]; then
         pass_count=`cat pass_count.txt`
-        new_pass=$pass_count + 1
+        new_pass=$pass_count+1
         echo $new_pass > pass_count.txt
       else
         echo 1 > pass_count.txt
         pass_count=1
       fi
       # skip this if no mkv files or pass_count > 3
-      if [ $mkv_count != 0 ] && [ $pass_count < 4 ]
+      if [ $mkv_count != 0 ] && [ "$pass_count" -lt 4 ]
       then
         for video_file in *.mkv
         do
