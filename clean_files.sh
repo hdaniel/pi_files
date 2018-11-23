@@ -84,7 +84,7 @@ do
           outfile1=`basename $cam_dir`
           outfile2=`basename $date_dir`
           output_filename=$cam_dir_$outfile1"_"$outfile2"_full_jpg.mp4"
-          ffmpeg -r 4 -f concat -safe 0 -i file_list.txt -s 1280x720 -vcodec libx264 -pix_fmt yuv420p -preset veryfast $output_filename -y
+          ffmpeg -r 4 -f concat -safe 0 -i file_list.txt -s 1280x720 -vcodec libx264 -pix_fmt yuv420p -preset veryfast -b 200k $output_filename -y
           chown ftpuser:ftpgroup $output_filename
           mv file_list.txt file_list_processed.txt
           chown ftpuser:ftpgroup file_list_processed.txt
@@ -136,7 +136,7 @@ do
       #     outfile1=`basename $cam_dir`
       #     outfile2=`basename $date_dir`
       #     output_filename=$cam_dir_$outfile1"_"$outfile2"_full.mp4"
-      #     ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy -preset veryfast $output_filename -y
+      #     ffmpeg -y -f concat -safe 0 -i file_list.txt -c copy -preset veryfast -b 200k $output_filename -y
       #     chown ftpuser:ftpgroup $output_filename
       #     mv file_list.txt file_list_processed.txt
       #     chown ftpuser:ftpgroup file_list_processed.txt
