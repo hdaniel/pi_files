@@ -66,8 +66,6 @@ do
       jpg_count=`ls -1 *.jpg 2>/dev/null | wc -l`
       if [ -f "pass_count.txt" ]; then
         pass_count=`cat pass_count.txt`
-        new_pass=$((pass_count + 1))
-        echo $new_pass > pass_count.txt
       else
         echo 1 > pass_count.txt
         pass_count=1
@@ -75,6 +73,8 @@ do
       # skip this if no jpg files or pass_count > 3
       if [ $jpg_count != 0 ] && [ "$pass_count" -lt "$max_passes" ]
       then
+        new_pass=$((pass_count + 1))
+        echo $new_pass > pass_count.txt
         for jpg_file in *.jpg
         do
           echo "file '$jpg_file'" >> file_list.txt
@@ -118,8 +118,6 @@ do
       mkv_count=`ls -1 *.mkv 2>/dev/null | wc -l`
       if [ -f "pass_count.txt" ]; then
         pass_count=`cat pass_count.txt`
-        new_pass=$((pass_count + 1))
-        echo $new_pass > pass_count.txt
       else
         echo 1 > pass_count.txt
         pass_count=1
@@ -127,6 +125,8 @@ do
       # skip this if no mkv files or we've made enough passes at it
       # if [ $mkv_count != 0 ] && [ "$pass_count" -lt "$max_passes" ]
       # then
+      #   new_pass=$((pass_count + 1))
+      #   echo $new_pass > pass_count.txt
       #   for video_file in *.mkv
       #   do
       #     echo "file '$video_file'" >> file_list.txt
