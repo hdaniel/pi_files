@@ -26,11 +26,11 @@ base_path="/home/pi/FTP"
 cd $base_path
 
 # cleanup camera uploads
-find $base_path -type f -daystart -mtime +10 -name '*.mkv' -execdir rm -- '{}' \;
-find $base_path -type f -daystart -mtime +10 -name '*.jpg' -execdir rm -- '{}' \;
-find $base_path -type f -daystart -mtime +10 -name '*.mp4' -execdir rm -- '{}' \;
-find $base_path -type f -daystart -mtime +10 -name '*.txt' -execdir rm -- '{}' \;
-find $base_path -type d -empty -delete
+find -L $base_path -type f -daystart -mtime +10 -name '*.mkv' -execdir rm -- '{}' \;
+find -L $base_path -type f -daystart -mtime +10 -name '*.jpg' -execdir rm -- '{}' \;
+find -L $base_path -type f -daystart -mtime +10 -name '*.mp4' -execdir rm -- '{}' \;
+find -L $base_path -type f -daystart -mtime +10 -name '*.txt' -execdir rm -- '{}' \;
+find -L $base_path -type d -empty -delete
 
 max_passes=4
 
